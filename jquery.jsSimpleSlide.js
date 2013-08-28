@@ -5,7 +5,7 @@
  * I wrote this plugin since a lot of other sliders didn't work instantly.
  *
  * @author Konsultaner GmbH & Co. KG - Richard Burkhardt
- * @version 0.0.1
+ * @version 0.0.2
  **/
 (function($){
 
