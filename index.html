@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="jquery.jsSimpleSlide.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#slider").jsSimpleSlide();
+            $("#slider2").jsSimpleSlide({
+                pauseOnHover : false
+            });
+        })
+    </script>
+    <title>Example</title>
+</head>
+<body>
+<ul id="slider">
+    <li style="color: #ff00ff">Very</li>
+    <li style="color: #ff0a00">Simple</li>
+    <li style="color: #a37d00">Slider</li>
+    <li style="color: #007e15">For</li>
+    <li style="color: #0026ff">You</li>
+</ul>
+<span onclick="$('#slider').jsSimpleSlide('navLeft')">&lt;-</span>
+<span onclick="$('#slider').jsSimpleSlide('navRight')">-&gt;</span>
+
+<ul id="slider2">
+    <li><img height="100" src="http://farm3.static.flickr.com/2775/4110967360_661cd9d99e.jpg" alt="Flicker Sample"/></li>
+    <li><img height="100" src="http://farm3.static.flickr.com/2641/4163443812_df0b200930.jpg" alt="Flicker Sample"/></li>
+    <li><img height="100" src="http://farm3.static.flickr.com/2561/4048285842_90b7e9f8d1_m.jpg" alt="Flicker Sample"/></li>
+    <li><img height="100" src="http://farm3.static.flickr.com/2489/4234944202_0fe7930011_m.jpg" alt="Flicker Sample"/></li>
+</ul>
+
+</body>
+</html>
