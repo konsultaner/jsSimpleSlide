@@ -5,7 +5,7 @@
  * I wrote this plugin since a lot of other sliders didn't work instantly.
  *
  * @author Konsultaner GmbH & Co. KG - Richard Burkhardt
- * @version 0.0.2
+ * @version 0.0.4
  **/
 (function($){
 
@@ -13,8 +13,10 @@
         autoplay : true,
         easing: "linear",
         duration : 800,
+        pauseTime : 3000,
         height : "100px",
-        pauseOnHover : true
+        pauseOnHover : true,
+        navigateOnClick : false
     };
 
     var methods = {
@@ -58,7 +60,7 @@
                         height: _settings.height
                     });
 
-                    // needed so that hitting the next or previous button will not conflict the autoplay or the animation
+                    // needed so that hitting the next or previous button will not conflict the auto play or the animation
                     $(this).data("navigating",false);
                     var self = $(this);
 
@@ -78,6 +80,13 @@
                         }
                     });
 
+                    if(_settings.navigateOnClick){
+                        $(this).children().css({cursor:"pointer"});
+                        $(this).on("click.jsSimpleSlide"," > *",function(){
+                            methods.navRight.apply(self,[$(this).prevAll().length]);
+                        });
+                    }
+
                 }else{
                     methods.throwError(1);
                 }
@@ -96,9 +105,11 @@
          *      {
          *           autoplay : true, // starts the auto play on initialization
          *           easing: "linear", // the easing for the image movements
-         *           duration : 800, // the duration between the transitions
+         *           duration : 800, // the time the transition takes
+         *           pauseTime : 3000, // the pause time between the transitions
          *           height : "100px", // the slider height
          *           pauseOnHover : true // if the user hovers the slider the auto play will stop autoply until the mouse leaves the slider
+         *           navigateOnClick : false // if the user clicks on one of the content elements the slider will scroll to that element
          *       }
          *
          * @param {String} option The option setting that is to be changed
@@ -117,13 +128,14 @@
         /**
          * pause
          *
-         * Pausees the autoplay
+         * Pauses the autoplay
          *
-         *      $(".slider").destroy("pause");
+         *      $(".slider").jsSimpleSlide("pause");
          *
          * @return {*} The current Simple Slider Object
          */
         pause: function(){
+            $(this).trigger("pause");
             clearInterval($(this).data("autoScrollTimer"));
         },
 
@@ -132,18 +144,19 @@
          *
          * Starts the autoplay
          *
-         *      $(".slider").destroy("play");
+         *      $(".slider").jsSimpleSlide("play");
          *
          * @return {*} The current Simple Slider Object
          */
         play: function(){
+            $(this).trigger("play");
             var self = $(this);
             if($(this).data("autoScrollTimer")){
                 methods.pause.apply(self);
             }
             $(this).data("autoScrollTimer",window.setInterval(function(){
                 methods.navRight.apply(self);
-            },3000));
+            },this.data("settings").pauseTime));
 
             return $(this);
         },
@@ -151,13 +164,24 @@
         /**
          * navRight
          *
-         * Navigates the slider to the left
+         * Navigates the slider to the left, triggers the startNavRight event
          *
-         *      $(".slider").destroy("navRight");
+         *      $(".slider").destroy("navRight",steps,duration);
          *
+         * @param {int} steps the amount of navigation cycles to be done
+         * @param {int} duration overwrite the duration set in the settings
          * @return {*} The current Simple Slider Object
          */
-        navRight : function(){
+        navRight : function(steps,duration){
+            if(typeof steps == "undefined"){
+                steps = 1;
+                if(typeof duration == "undefined"){
+                    duration = $(this).data("settings").duration / steps;
+                }
+            }
+
+            $(this).trigger({type:"startNavRight",steps:steps,duration:duration});
+
             if(!$(this).data("navigating")){
                 $(this).data("navigating",true);
                 var firstElement = $(this).children().first(),
@@ -172,10 +196,14 @@
                             firstElement.detach()
                             scroller.scrollLeft(0);
                             firstElement.appendTo(self);
-                            firstElement.css({opacity:0}).stop(true,true).animate({opacity:1});
+                            firstElement.css({opacity:0}).stop(true,true).animate({opacity:1},{duration:duration/3});
                             self.data("navigating",false);
+                            if(steps > 1){
+                                steps--;
+                                methods.navRight.apply(self,[steps,duration]);
+                            }
                         },
-                        duration: self.data("settings").duration,
+                        duration: duration,
                         easing: self.data("settings").easing
                     }
                 )
@@ -186,13 +214,24 @@
         /**
          * navLeft
          *
-         * Navigates the slider to the left
+         * Navigates the slider to the left, triggers the startNavLeft event
          *
          *      $(".slider").destroy("navLeft");
          *
+         * @param {int} steps the amount of navigation cycles to be done
+         * @param {int} duration overwrite the duration set in the settings
          * @return {*} The current Simple Slider Object
          */
-        navLeft : function(){
+        navLeft : function(steps,duration){
+            if(typeof steps == "undefined"){
+                steps = 1;
+                if(typeof duration == "undefined"){
+                    duration = $(this).data("settings").duration / steps;
+                }
+            }
+
+            $(this).trigger({type:"startNavLeft",steps:steps,duration:duration});
+
             if(!$(this).data("navigating")){
                 $(this).data("navigating",true);
                 var lastElement = $(this).children().last(),
@@ -206,8 +245,12 @@
                     },{
                         complete:function(){
                             self.data("navigating",false);
+                            if(steps > 1){
+                                steps--;
+                                methods.navRight.apply(self,[steps,duration]);
+                            }
                         },
-                        duration: self.data("settings").duration,
+                        duration: duration,
                         easing: self.data("settings").easing
                     }
                 )
