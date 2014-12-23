@@ -173,6 +173,11 @@
          * @return {*} The current Simple Slider Object
          */
         navRight : function(steps,duration){
+            if($(this).closest("body").length < 1) {
+                methods.pause.apply($(this));
+                return $(this);
+            }
+
             if(typeof steps == "undefined"){
                 steps = 1;
                 if(typeof duration == "undefined"){
@@ -223,6 +228,11 @@
          * @return {*} The current Simple Slider Object
          */
         navLeft : function(steps,duration){
+            if($(this).closest("body").length < 1) {
+                methods.pause.apply($(this));
+                return $(this);
+            }
+
             if(typeof steps == "undefined"){
                 steps = 1;
                 if(typeof duration == "undefined"){
