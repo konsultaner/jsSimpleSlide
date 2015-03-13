@@ -1,7 +1,7 @@
 {
     "name": "jsSimpleSlide",
     "title": "jsSimpleSlide",
-    "description": "jQuery plugin for a very basic horizontal content slider",
+    "description": "jQuery plugin for a very basic but super robust horizontal content slider",
     "keywords": [
         "image",
         "slider",
@@ -9,7 +9,7 @@
         "widget",
         "animation"
     ],
-    "version": "0.0.4",
+    "version": "0.0.5",
     "author": {
         "name": "Richard Burkhardt",
         "url": "http://konsultaner.de"
@@ -27,10 +27,10 @@
             "url": "http://www.gnu.org/licenses/lgpl.html"
         }
     ],
-    "bugs": "https://github.com/richidd/jsSimpleSlide/issues",
+    "bugs": "https://github.com/konsultaner/jsSimpleSlide/issues",
     "homepage": "http://jssimpleslide.konsultaner.de",
     "docs": "http://jssimpleslide.konsultaner.de",
-    "download": "https://github.com/richidd/jsSimpleSlide",
+    "download": "https://github.com/konsultaner/jsSimpleSlide",
     "dependencies": {
         "jquery": ">=1.9.0"
     }

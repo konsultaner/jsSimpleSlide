@@ -1,7 +1,7 @@
-jsSimpleSlide 0.0.4
+jsSimpleSlide 0.0.5
 ===================
 
-A very basic horizontal content slider
+A very basic but super robust horizontal content slider
 
 Find the full docs [here](http://jssimpleslide.konsultaner.de)
 Find an example in the in index.html
