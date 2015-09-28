@@ -5,7 +5,7 @@
  * I wrote this plugin since a lot of other sliders didn't work instantly.
  *
  * @author Konsultaner GmbH & Co. KG - Richard Burkhardt
- * @version 0.0.4
+ * @version 0.0.5
  **/
 (function($){
 
@@ -166,7 +166,7 @@
          *
          * Navigates the slider to the left, triggers the startNavRight event
          *
-         *      $(".slider").destroy("navRight",steps,duration);
+         *      $(".slider").jsSimpleSlide("navRight",steps,duration);
          *
          * @param {int} steps the amount of navigation cycles to be done
          * @param {int} duration overwrite the duration set in the settings
@@ -221,7 +221,7 @@
          *
          * Navigates the slider to the left, triggers the startNavLeft event
          *
-         *      $(".slider").destroy("navLeft");
+         *      $(".slider").jsSimpleSlide("navLeft");
          *
          * @param {int} steps the amount of navigation cycles to be done
          * @param {int} duration overwrite the duration set in the settings
@@ -273,7 +273,7 @@
          *
          * Destroys The plugin
          *
-         *      $(".slider").destroy("destroy");
+         *      $(".slider").jsSimpleSlide("destroy");
          *
          * @return {*} The current Simple Slider Object
          */
