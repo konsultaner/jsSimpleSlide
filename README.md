@@ -1,4 +1,4 @@
-jsSimpleSlide 0.0.5
+jsSimpleSlide 0.0.6
 ===================
 
 A very basic but super robust horizontal content slider
